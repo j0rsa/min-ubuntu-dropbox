@@ -28,14 +28,14 @@ docker run -d \
 ## INITIAL SETUP
 At first run, the container will download the latest version of the Dropbox Linux client.
 
-Run `docker logs dropbox -f` after starting the container and once the client download finishes, wait until you see messages similar to:
+Run `docker logs dropbox -f` after starting the container and wait until you see messages similar to:
 
 ```
 This computer isn't linked to any Dropbox account...
 Please visit https://www.dropbox.com/cli_link_nonce?nonce=(xxxxx-random-nonce-value-xxxxx) to link this device.
 ```
 
-Open the link in a browser and authorise the client to link the container to your Dropbox.
+Open the link in a browser to authorise the client and link the container to your Dropbox.
 
 You should then see in the docker log:
 ```
@@ -51,7 +51,7 @@ There is no updater script, so to update the Dropbox client; remove the containe
   docker exec -it -u dbox dropbox dropbox-cli help
   ```
 
-  Any custom configuration that is supported by the dropbox-cli can be modified this way.
+  Any custom configuration that is supported by the [dropbox-cli](https://help.dropbox.com/installs-integrations/desktop/linux-commands#commands) can be modified this way.
 
 * The current Dropbox status can be seen in the docker log. It refreshes every five seconds and only outputs data when there are any changes.
 
