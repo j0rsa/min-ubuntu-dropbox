@@ -5,8 +5,8 @@
 UID=${UID:-1000}
 GID=${GID:-1000}
 
-addgroup -g $GID dbox && \
-        adduser -S -D -H -h /dbox -s /bin/sh -u $UID -G dbox dbox
+addgroup --gid $GID dbox
+adduser --system --disabled-password --no-create-home --home /dbox --shell /bin/sh --uid $UID --group dbox
 
 chown -R $UID:$GID /dbox
 
