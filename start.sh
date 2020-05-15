@@ -6,7 +6,7 @@ if [ ! -d ~/.dropbox-dist ]; then
     echo "Installed Dropbox version:" $(cat /dbox/.dropbox-dist/VERSION)
 fi
 
-# Script to log the dropbox status every second (if changed)
+# Script to log the dropbox status every 5 seconds (if changed)
 dropbox-status &
 
 ~/.dropbox-dist/dropboxd

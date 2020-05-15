@@ -9,5 +9,5 @@ do
             echo "${STORED}"
         fi
     fi
-    sleep 1
+    sleep 5
 done
