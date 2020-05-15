@@ -1,67 +1,60 @@
-# Alpine Dropbox
+# bnutz/min-ubuntu-dropbox
 
-A minimal Alpine ([glibc](https://hub.docker.com/r/frolvlad/alpine-glibc/)) docker container that runs a headless Dropbox client.
+## DESCRIPTION:
+Forked from Ralph Slooten's [Alpine Dropbox](https://github.com/axllent/alpine-dropbox) and ported over to a Minimal Ubuntu base after the latest [Dropbox for Linux](https://www.dropbox.com/install-linux) headless clients started requiring additional dependencies that would likely require further hackery of the original [glibc-enabled](https://hub.docker.com/r/frolvlad/alpine-glibc/) Alpine base.
 
-## Quickstart
-
-```shell
+## EXAMPLE USAGE:
+```
 docker run -d \
---name dropbox \
---restart=unless-stopped \
--v /path/to/localfolder:/dbox/Dropbox \
--v /path/to/localconfigfolder:/dbox/.dropbox \
-axllent/alpine-dropbox
+    --name dropbox \
+    --net=host \
+    -e UID=1000 \
+    -e GID=1000 \
+    -v <path to Dropbox folder>:/dbox/Dropbox \
+    -v <path to config folder>:/dbox/.dropbox \
+    --restart=unless-stopped \
+    bnutz/min-ubuntu-dropbox
 ```
 
-The first time the container is run it downloads the latest version of the Dropbox client. There is no updater script, so if you need to update the Dropbox client then simply remove the container and add it again.
+## DOCKER PARAMETERS:
+| Default Parameters | Function |
+| ------------------ | -------- |
+| `-e UID=1000`   | UID of Dropbox (current) user. |
+| `-e GID=1000`   | GID of Dropbox (current) user. |
+| `-v /path/to/dropbox/folder:/dbox/Dropbox` | Path to Dropbox folder on host machine. |
+| `-v /path/to/config/folder:/dbox/.dropbox` | Path to persistent Dropbox settings folder on host machine. |
 
-## Authorise the client
 
-The first time you run you will need to authorise the Dropbox client.
+## INITIAL SETUP
+At first run, the container will download the latest version of the Dropbox Linux client.
 
-## Authorise the client
-
-The first time you run you will need to authorise the Dropbox client.
-
-After starting your container, run `docker logs dropbox -f` and wait until you see something like:
+Run `docker logs dropbox -f` after starting the container and once the client download finishes, wait until you see messages similar to:
 
 ```
 This computer isn't linked to any Dropbox account...
-Please visit https://www.dropbox.com/cli_link_nonce?nonce=48fb804e2fa486b152db480a36ef5923 to link this device.
+Please visit https://www.dropbox.com/cli_link_nonce?nonce=(xxxxx-random-nonce-value-xxxxx) to link this device.
 ```
 
-Open that link in your browser and authorise the client to access your dropbox.
+Open the link in a browser and authorise the client to link the container to your Dropbox.
 
-
-## Running as custom user/group
-
-The image will by default run with user/group id of 1000. You can change this to suit your current user by adding the `UID` & `GID` environment variables.
-
-```shell
-docker run -d \
---name dropbox \
---restart=unless-stopped \
--v /path/to/localfolder:/dbox/Dropbox \
--v /path/to/localconfigfolder:/dbox/.dropbox \
--e UID=1001 \
--e GID=1001 \
-axllent/alpine-dropbox
+You should then see in the docker log:
+```
+This computer is now linked to Dropbox. Welcome *your-name*
 ```
 
-## Interacting with dropbox-cli
+There is no updater script, so to update the Dropbox client; remove the container and add it again. The persistent config folder will ensure you don't need to relink your account again.
 
-Dropbox commands should be run as the `dbox` user:
+## NOTES:
+* Dropbox commands should be run as the `dbox` user:
 
-```shell
-docker exec -it -u dbox dropbox dropbox-cli help
-```
+  ```shell
+  docker exec -it -u dbox dropbox dropbox-cli help
+  ```
 
-Any custom configuration that is supported by the dropbox-cli can be modified this way.
+  Any custom configuration that is supported by the dropbox-cli can be modified this way.
 
-## Dropbox status
+* The current Dropbox status can be seen in the docker log. It refreshes every five seconds and only outputs data when there are any changes.
 
-The current Dropbox status can be seen in the docker log. It refreshes every second and only outputs data when the data changes as not to spam the log with irrelevant info.
-
-```shell
-docker logs dropbox -f
-```
+  ```shell
+  docker logs dropbox -f
+  ```
