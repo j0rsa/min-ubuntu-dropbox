@@ -6,6 +6,9 @@ if [ ! -d ~/.dropbox-dist ]; then
     echo "Installed Dropbox version:" $(cat /dbox/.dropbox-dist/VERSION)
 fi
 
+# Remove pid file from previous run (if exists) as this can block container from restarting
+rm -f ~/.dropbox/dropbox.pid
+
 # Script to log the dropbox status every 5 seconds (if changed)
 dropbox-status &
 
