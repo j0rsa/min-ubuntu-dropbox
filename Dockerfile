@@ -1,7 +1,5 @@
 FROM ubuntu
 
-USER root
-
 # If get ImportError: xxxxxxx.xxx during building, can search for the package to install here:
 # https://packages.debian.org/search?mode=filename&suite=buster&section=all&arch=i386&searchon=contents&keywords=xxxxxxx
 RUN apt-get update \
@@ -12,8 +10,10 @@ RUN apt-get update \
 
 ADD init.sh /init
 RUN chmod +x /init
+
 ADD start.sh /start.sh
 RUN chmod +x /start.sh
+
 ADD dropbox-status.sh /usr/local/bin/dropbox-status
 RUN chmod +x /usr/local/bin/dropbox-status
 
