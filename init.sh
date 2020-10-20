@@ -12,4 +12,6 @@ fi
 
 chown -R $UID:$GID /dbox
 
-su -s /bin/sh -c "$@" dbox
+run_as_user=$(getent passwd "0" | cut -d: -f1)
+
+su -s /bin/sh -c "$@" $run_as_user
