@@ -5,8 +5,10 @@
 UID=${UID:-1000}
 GID=${GID:-1000}
 
-addgroup --gid $GID dbox
-adduser --system --disabled-password --no-create-home --home /dbox --shell /bin/sh --uid $UID --group dbox
+if ! grep -q "$UID:$GID" "/etc/passwd"; then
+    addgroup --gid $GID dbox
+    adduser --system --disabled-password --no-create-home --home /dbox --shell /bin/sh --uid $UID --group dbox
+fi
 
 chown -R $UID:$GID /dbox
 

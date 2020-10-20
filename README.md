@@ -1,4 +1,4 @@
-# bnutz/min-ubuntu-dropbox
+# j0rsa/min-ubuntu-dropbox
 
 ## DESCRIPTION:
 Forked from Ralph Slooten's [Alpine Dropbox](https://github.com/axllent/alpine-dropbox) and ported over to a Minimal Ubuntu base after the latest [Dropbox for Linux](https://www.dropbox.com/install-linux) headless clients started requiring additional dependencies that would likely require further hackery of the original [glibc-enabled](https://hub.docker.com/r/frolvlad/alpine-glibc/) Alpine base.
@@ -13,7 +13,7 @@ docker run -d \
     -v <path to Dropbox folder>:/dbox/Dropbox \
     -v <path to config folder>:/dbox/.dropbox \
     --restart=unless-stopped \
-    bnutz/min-ubuntu-dropbox
+    j0rsa/min-ubuntu-dropbox
 ```
 
 ## DOCKER PARAMETERS:

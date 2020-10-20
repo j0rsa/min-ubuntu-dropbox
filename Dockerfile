@@ -5,6 +5,8 @@ FROM ubuntu
 RUN apt-get update \
     && apt-get install -y wget python3 \
     libc6 libglib2.0-0 libglapi-mesa libxext6 libxdamage1 libxfixes3 libxcb-glx0 libxcb-dri2-0 libxcb-dri3-0 libxcb-present0 libxcb-sync1 libxshmfence1 libxxf86vm1 \
+    # to set a Dropbox file or folder to be ignored ref: https://help.dropbox.com/files-folders/restore-delete/ignored-files
+    attr \
     && wget https://www.dropbox.com/download?dl=packages/dropbox.py -O /usr/local/bin/dropbox-cli \
     && chmod +x /usr/local/bin/dropbox-cli
 
