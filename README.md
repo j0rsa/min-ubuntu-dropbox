@@ -64,3 +64,9 @@ There is no updater script, so to update the Dropbox client; remove the containe
   ```shell
   docker run -it --rm --name dropbox -v $HOME/Documents/data:/dbox/Dropbox -v $HOME/Documents/config:/dbox/.dropbox j0rsa/min-ubuntu-dropbox
   ```
+
+## Ignore file/dir
+
+  ```
+  docker exec -it dropbox attr -s com.dropbox.ignored -V 1 <path/to/file>
+  ```
