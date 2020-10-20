@@ -58,3 +58,9 @@ There is no updater script, so to update the Dropbox client; remove the containe
   ```shell
   docker logs dropbox -f
   ```
+
+* Check whether the image still could be used
+
+  ```shell
+  docker run -it --rm --name dropbox -v $HOME/Documents/data:/dbox/Dropbox -v $HOME/Documents/config:/dbox/.dropbox j0rsa/min-ubuntu-dropbox
+  ```
