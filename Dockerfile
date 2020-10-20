@@ -11,20 +11,15 @@ RUN apt-get update \
     && chmod +x /usr/local/bin/dropbox-cli
 
 ADD init.sh /init
-RUN chmod +x /init
-
 ADD start.sh /start.sh
-RUN chmod +x /start.sh
-
 ADD dropbox-status.sh /usr/local/bin/dropbox-status
-RUN chmod +x /usr/local/bin/dropbox-status
 
-WORKDIR /dbox
+RUN chmod +x /init && \
+    chmod +x /start.sh && \
+    chmod +x /usr/local/bin/dropbox-status
 
 EXPOSE 17500
 
 ENTRYPOINT ["/init"]
-
-VOLUME ["/dbox/Dropbox", "/dbox/.dropbox"]
 
 CMD ["/start.sh"]

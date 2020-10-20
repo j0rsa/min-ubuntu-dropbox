@@ -24,6 +24,7 @@ docker run -d \
 | `-v /path/to/dropbox/folder:/dbox/Dropbox` | Path to Dropbox folder on host machine. |
 | `-v /path/to/config/folder:/dbox/.dropbox` | Path to persistent Dropbox settings folder on host machine. |
 
+UID and GID could be an existing user, but make sure that paths to `Dropbox`&`.dropbox` lead to one's home directory
 
 ## INITIAL SETUP
 At first run, the container will download the latest version of the Dropbox Linux client.
@@ -63,4 +64,10 @@ There is no updater script, so to update the Dropbox client; remove the containe
 
   ```shell
   docker run -it --rm --name dropbox -v $HOME/Documents/data:/dbox/Dropbox -v $HOME/Documents/config:/dbox/.dropbox j0rsa/min-ubuntu-dropbox
+  ```
+
+## Ignore file/dir
+
+  ```
+  docker exec -it dropbox attr -s com.dropbox.ignored -V 1 <path/to/file>
   ```
