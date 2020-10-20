@@ -7,7 +7,7 @@ if [ ! -d /dbox/.dropbox-dist ]; then
 fi
 
 # Remove pid file from previous run (if exists) as this can block container from restarting
-rm -f /dbox/.dropbox/dropbox.pid
+rm -f ~/.dropbox/dropbox.pid
 
 # Script to log the dropbox status every 5 seconds (if changed)
 dropbox-status &
